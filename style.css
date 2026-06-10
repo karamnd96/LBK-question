@@ -50,9 +50,9 @@ button {
   background-color: #555;
   color: white;
   position: fixed;
-  left: 55%;
-  top: 58%;
-  transform: scale(1);
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 #message {
