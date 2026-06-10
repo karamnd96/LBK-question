@@ -23,7 +23,7 @@ h1 {
 .container {
   margin-top: 30px;
   position: relative;
-  height: 180px;
+  height: 220px;
 }
 
 button {
@@ -33,12 +33,13 @@ button {
   border-radius: 30px;
   cursor: pointer;
   margin: 15px;
-  transition: 0.2s;
+  transition: all 0.25s ease;
 }
 
 #yesBtn {
   background-color: #ff4f8b;
   color: white;
+  transform: scale(1);
 }
 
 #yesBtn:hover {
@@ -48,7 +49,10 @@ button {
 #noBtn {
   background-color: #555;
   color: white;
-  position: absolute;
+  position: fixed;
+  left: 55%;
+  top: 58%;
+  transform: scale(1);
 }
 
 #message {
