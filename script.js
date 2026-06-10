@@ -4,7 +4,6 @@ const message = document.getElementById("message");
 
 let noScale = 1;
 let yesScale = 1;
-let moveCount = 0;
 
 noBtn.addEventListener("mouseover", moveNoButton);
 noBtn.addEventListener("click", moveNoButton);
@@ -15,15 +14,13 @@ function moveNoButton(event) {
     event.preventDefault();
   }
 
-  moveCount++;
-
   // Make NO smaller each time
-  noScale -= 0.12;
+  noScale -= 0.10;
 
   // Make YES bigger each time
-  yesScale += 0.15;
+  yesScale += 0.12;
 
-  if (noScale <= 0.15) {
+  if (noScale <= 0.18) {
     noBtn.style.display = "none";
     yesBtn.style.transform = "scale(2)";
     message.textContent = "Only one choice left now 😌💖";
@@ -33,15 +30,22 @@ function moveNoButton(event) {
   noBtn.style.transform = `scale(${noScale})`;
   yesBtn.style.transform = `scale(${yesScale})`;
 
-  // Keep NO button inside the visible screen
+  // Central movement area only
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
   const buttonWidth = noBtn.offsetWidth * noScale;
   const buttonHeight = noBtn.offsetHeight * noScale;
 
-  const maxX = window.innerWidth - buttonWidth - 30;
-  const maxY = window.innerHeight - buttonHeight - 30;
+  // These values keep the NO button near the center
+  const minX = screenWidth * 0.25;
+  const maxX = screenWidth * 0.75 - buttonWidth;
 
-  const randomX = Math.floor(Math.random() * maxX);
-  const randomY = Math.floor(Math.random() * maxY);
+  const minY = screenHeight * 0.45;
+  const maxY = screenHeight * 0.70 - buttonHeight;
+
+  const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
+  const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
 
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
