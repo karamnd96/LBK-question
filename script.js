@@ -5,9 +5,8 @@ const message = document.getElementById("message");
 let noScale = 1;
 let yesScale = 1;
 
-noBtn.addEventListener("mouseover", moveNoButton);
-noBtn.addEventListener("click", moveNoButton);
-noBtn.addEventListener("touchstart", moveNoButton);
+noBtn.addEventListener("pointerdown", moveNoButton);
+noBtn.addEventListener("mouseenter", moveNoButton);
 
 function moveNoButton(event) {
   if (event) {
@@ -27,25 +26,22 @@ function moveNoButton(event) {
     return;
   }
 
-  noBtn.style.transform = `scale(${noScale})`;
+  noBtn.style.transform = `translate(-50%, -50%) scale(${noScale})`;
   yesBtn.style.transform = `scale(${yesScale})`;
 
-  // Central movement area only
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
+  // Use the visible screen size, especially for phones
+  const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+  const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-  const buttonWidth = noBtn.offsetWidth * noScale;
-  const buttonHeight = noBtn.offsetHeight * noScale;
+  // Small safe center area only
+  const centerX = viewportWidth * 0.50;
+  const centerY = viewportHeight * 0.62;
 
-  // These values keep the NO button near the center
-  const minX = screenWidth * 0.25;
-  const maxX = screenWidth * 0.75 - buttonWidth;
+  const rangeX = Math.min(90, viewportWidth * 0.18);
+  const rangeY = Math.min(55, viewportHeight * 0.08);
 
-  const minY = screenHeight * 0.45;
-  const maxY = screenHeight * 0.70 - buttonHeight;
-
-  const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
-  const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
+  const randomX = centerX + (Math.random() * rangeX * 2 - rangeX);
+  const randomY = centerY + (Math.random() * rangeY * 2 - rangeY);
 
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
